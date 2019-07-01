@@ -30,10 +30,14 @@ func (p *Parser) parseLine(line string) (string, string) {
 	}
 
 	separatorIndex := strings.Index(line, ":")
-	key := line[0:separatorIndex]
-	value := line[separatorIndex+1 : len(line)]
+	if separatorIndex != -1 {
+		key := line[0:separatorIndex]
+		value := line[separatorIndex+1 : len(line)]
 
-	return key, value
+		return key, value
+	}
+	
+	return "", line
 }
 
 func (p *Parser) mapToPackage(m map[string]string) (Package, error) {
